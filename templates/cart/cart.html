@@ -1,6 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .card {
+        border-radius: 1rem;
+        background-color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-title {
+        font-weight: 700;
+        color: #4b0082;
+    }
+
+    .form-control-sm {
+        border-radius: 8px;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #8e24aa, #d81b60);
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #d81b60, #8e24aa);
+        transform: scale(1.03);
+    }
+
+    .btn-link.text-danger:hover {
+        color: #ff1744 !important;
+        text-decoration: none;
+    }
+
+    .input-group {
+        max-width: 120px;
+    }
+
+    .img-fluid.rounded {
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-cart-icon {
+        color: #c0bebe;
+    }
+
+    hr {
+        border-top: 1px solid #eee;
+    }
+</style>
+
 <div class="container py-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -13,7 +72,7 @@
     <div class="row">
         <!-- Cart Items -->
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
+            <div class="card mb-4">
                 <div class="card-body">
                     <h3 class="card-title mb-4">Shopping Cart</h3>
                     {% for item in cart_items %}
@@ -23,23 +82,21 @@
                         </div>
                         <div class="col-md-4">
                             <h5 class="mb-1">{{ item.product.name }}</h5>
-                            <p class="text-muted mb-0">${{ item.product.price }}</p>
+                            <p class="text-muted small mb-0">${{ item.product.price }}</p>
                         </div>
                         <div class="col-md-3">
-                            <div class="input-group">
-                                <form method="post" action="{% url 'cart:update-cart-item' item.id %}" class="d-flex">
-                                    {% csrf_token %}
-                                    <input type="number" name="quantity" value="{{ item.quantity }}" 
-                                           min="1" max="{{ item.product.stock }}" 
-                                           class="form-control form-control-sm">
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                        <i class="fas fa-sync-alt"></i>
-                                    </button>
-                                </form>
-                            </div>
+                            <form method="post" action="{% url 'cart:update-cart-item' item.id %}" class="d-flex">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" 
+                                       min="1" max="{{ item.product.stock }}" 
+                                       class="form-control form-control-sm me-2">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </form>
                         </div>
                         <div class="col-md-2 text-end">
-                            <span class="h5">${{ item.total }}</span>
+                            <span class="h6">${{ item.total }}</span>
                         </div>
                         <div class="col-md-1 text-end">
                             <form method="post" action="{% url 'cart:remove-from-cart' item.id %}">
@@ -56,12 +113,12 @@
             </div>
         </div>
 
-        <!-- Cart Summary -->
+        <!-- Summary -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
+            <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Order Summary</h4>
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal</span>
                         <span>${{ cart.total }}</span>
                     </div>
@@ -79,7 +136,7 @@
     </div>
     {% else %}
     <div class="text-center py-5">
-        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+        <i class="fas fa-shopping-cart fa-3x empty-cart-icon mb-3"></i>
         <h3>Your cart is empty</h3>
         <p class="text-muted">Browse our products and add some items to your cart.</p>
         <a href="{% url 'products:product_list' %}" class="btn btn-primary">

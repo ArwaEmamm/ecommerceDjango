@@ -1,8 +1,97 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    body {
+        background-color: #f9f8f6;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+        border: none;
+        border-radius: 1rem;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+        color: #3e3e3e;
+        font-weight: 600;
+    }
+
+    .list-group-item {
+        background-color: #fff;
+        color: #333;
+        border: none;
+        font-weight: 500;
+        padding: 12px 20px;
+    }
+
+    .list-group-item.active {
+        background: linear-gradient(135deg, #000000, #434343);
+        color: #fff;
+        border: none;
+    }
+
+    .badge {
+        padding: 0.4em 0.8em;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .badge-success {
+        background-color: #2e7d32;
+    }
+
+    .badge-danger {
+        background-color: #c62828;
+    }
+
+    .badge-info {
+        background-color: #6c757d;
+    }
+
+    .btn-outline-primary {
+        border-radius: 20px;
+        padding: 4px 16px;
+        font-weight: 500;
+        border-color: #000;
+        color: #000;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #000000, #434343);
+        border: none;
+        border-radius: 30px;
+        font-weight: 600;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #434343, #000000);
+        transform: scale(1.03);
+    }
+
+    table th {
+        font-weight: 600;
+        color: #444;
+    }
+
+    .text-muted {
+        color: #777 !important;
+    }
+</style>
+
 <div class="container py-5">
     <div class="row">
+        <!-- Sidebar -->
         <div class="col-md-3">
             <div class="list-group">
                 <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action active">
@@ -11,11 +100,12 @@
             </div>
         </div>
 
+        <!-- Main Section -->
         <div class="col-md-9">
-            <!-- Profile Information -->
-            <div class="card border-0 shadow-sm mb-4">
+            <!-- Profile Info -->
+            <div class="card mb-4">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Profile Information</h4>
+                    <h4 class="card-title mb-4">Your Profile</h4>
                     <div class="mb-3">
                         <label class="text-muted">Username</label>
                         <p class="mb-0">{{ user.username }}</p>
@@ -31,17 +121,19 @@
                 </div>
             </div>
 
-            <!-- Recent Orders -->
-            <div class="card border-0 shadow-sm">
+            <!-- Orders -->
+            <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="card-title mb-0">Recent Orders</h4>
-                        <a href="{% url 'orders:order_list' %}" class="btn btn-link">View All</a>
+                        <a href="{% url 'orders:order_list' %}" class="btn btn-link text-decoration-none">
+                            View All
+                        </a>
                     </div>
 
                     {% if orders %}
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover align-middle">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -57,7 +149,10 @@
                                     <td>{{ order.order_id }}</td>
                                     <td>{{ order.created_at|date:"M d, Y" }}</td>
                                     <td>
-                                        <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'cancelled' %}danger{% else %}info{% endif %}">
+                                        <span class="badge 
+                                            {% if order.status == 'delivered' %}badge-success
+                                            {% elif order.status == 'cancelled' %}badge-danger
+                                            {% else %}badge-info{% endif %}">
                                             {{ order.status|title }}
                                         </span>
                                     </td>

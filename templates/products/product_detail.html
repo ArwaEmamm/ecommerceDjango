@@ -1,6 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    body {
+        background-color: #fff0f5;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #c71585;
+    }
+
+    h1 {
+        color: #b03060;
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .lead {
+        color: #555;
+        font-size: 1.05rem;
+    }
+
+    .badge.bg-success {
+        background-color: #ad1457;
+        font-size: 0.9rem;
+        padding: 0.4em 0.7em;
+    }
+
+    .badge.bg-danger {
+        background-color: #c62828;
+        font-size: 0.9rem;
+        padding: 0.4em 0.7em;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #d81b60, #8e24aa);
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #8e24aa, #d81b60);
+        transform: scale(1.03);
+    }
+
+    .input-group input[type="number"] {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+    }
+
+    .input-group .btn {
+        border-radius: 0 20px 20px 0;
+    }
+
+    .img-fluid {
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(216, 27, 96, 0.2);
+    }
+</style>
+
 <div class="container py-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -9,17 +76,21 @@
         </ol>
     </nav>
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row align-items-center">
+        <!-- Product Image -->
+        <div class="col-md-6 mb-4">
             {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
             {% endif %}
         </div>
+
+        <!-- Product Info -->
         <div class="col-md-6">
             <h1 class="mb-3">{{ product.name }}</h1>
             <p class="lead mb-4">{{ product.description }}</p>
+
             <div class="mb-4">
-                <span class="h2">${{ product.price }}</span>
+                <span class="h2 text-danger">${{ product.price }}</span>
                 {% if product.stock > 0 %}
                 <span class="badge bg-success ms-2">In Stock</span>
                 {% else %}
@@ -34,7 +105,7 @@
                     <input type="number" name="quantity" value="1" min="1" 
                            max="{{ product.stock }}" class="form-control">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                        <i class="fas fa-cart-plus me-2"></i> Add to Cart
                     </button>
                 </div>
             </form>

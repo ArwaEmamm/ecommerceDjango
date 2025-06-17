@@ -2,80 +2,68 @@
 {% block content %}
 <style>
     body {
-        background-color: #f5f3f0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff0f5;
+        font-family: 'Poppins', sans-serif;
     }
 
     .breadcrumb {
-        background-color: transparent;
+        background: transparent;
         font-size: 0.95rem;
+        font-weight: 500;
+        color: #c71585;
     }
 
-    .list-group-item {
-        background-color: #fff;
-        border: none;
-        border-radius: 0;
-        padding: 12px 20px;
-        transition: background 0.3s, color 0.3s;
+    h1 {
+        color: #b03060;
+        font-weight: 700;
+        font-size: 2rem;
     }
 
-    .list-group-item.active,
-    .list-group-item:hover {
-        background-color: #000;
-        color: #fff;
+    .lead {
+        color: #555;
+        font-size: 1.05rem;
     }
 
-    .card {
-        border: none;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s;
-        height: 100%;
+    .badge.bg-success {
+        background-color: #ad1457;
+        font-size: 0.9rem;
+        padding: 0.4em 0.7em;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-img-top {
-        height: 250px;
-        object-fit: cover;
-        border-bottom: 1px solid #eee;
-    }
-
-    .card-body {
-        padding: 15px 20px;
-        background-color: #fff;
-    }
-
-    .card-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #333;
-    }
-
-    .card-text {
-        font-size: 0.95rem;
-        color: #888;
-        margin-bottom: 10px;
+    .badge.bg-danger {
+        background-color: #c62828;
+        font-size: 0.9rem;
+        padding: 0.4em 0.7em;
     }
 
     .btn-primary {
-        background-color: #000;
-        border-color: #000;
+        background: linear-gradient(45deg, #d81b60, #8e24aa);
+        border: none;
         border-radius: 25px;
-        padding: 8px 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        transition: background-color 0.3s ease;
+        font-weight: 600;
+        padding: 0.6rem 1.5rem;
+        color: #fff;
+        transition: all 0.3s ease;
     }
 
     .btn-primary:hover {
-        background-color: #444;
-        border-color: #444;
+        background: linear-gradient(45deg, #8e24aa, #d81b60);
+        transform: scale(1.03);
+    }
+
+    .input-group input[type="number"] {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+    }
+
+    .input-group .btn {
+        border-radius: 0 20px 20px 0;
+    }
+
+    .img-fluid {
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(216, 27, 96, 0.2);
     }
 </style>
 

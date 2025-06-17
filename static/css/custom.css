@@ -1,22 +1,80 @@
+/* === General Form Floating Effect === */
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: #0d6efd;
+    color: #222;
+    font-weight: 600;
+}
+
+/* === Input Focus === */
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: #fdfdfd;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #8c52ff;
+    box-shadow: 0 0 0 0.25rem rgba(140, 82, 255, 0.25);
+    background-color: #fff;
 }
 
+/* === Buttons === */
 .btn-primary {
+    background: linear-gradient(135deg, #8c52ff, #5e17eb);
+    border: none;
+    color: #fff;
     padding: 0.8rem 2rem;
-    font-weight: 500;
+    font-weight: bold;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 4px 14px rgba(92, 45, 255, 0.4);
+    transition: all 0.3s ease-in-out;
 }
 
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5e17eb, #8c52ff);
+    box-shadow: 0 6px 20px rgba(92, 45, 255, 0.5);
+}
+
+/* === Cards === */
 .card {
+    border: none;
     border-radius: 1rem;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
 .card-body {
-    border-radius: 1rem;
+    padding: 1.5rem;
+    border-radius: 0 0 1rem 1rem;
+}
+
+/* === Image Styling === */
+.card-img-top {
+    height: 260px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+/* === Typography === */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #777;
 }
