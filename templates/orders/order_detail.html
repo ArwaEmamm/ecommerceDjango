@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'products:product_list' %}">Products</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'orders:order_list' %}">My Orders</a></li>
+            <li class="breadcrumb-item active">Order #{{ order.id }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Order Details -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Order Items</h3>
+                    {% for item in order.items.all %}
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-2">
+                            <img src="{{ item.product.image.url }}" class="img-fluid rounded" alt="{{ item.product.name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-1">{{ item.product.name }}</h5>
+                            <p class="text-muted mb-0">Price: ${{ item.price }}</p>
+                            <p class="text-muted mb-0">Quantity: {{ item.quantity }}</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span class="h5">${{ item.total }}</span>
+                        </div>
+                    </div>
+                    {% if not forloop.last %}<hr>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Order Summary</h4>
+                    <div class="mb-3">
+                        <h6>Order Status</h6>
+                        <span class="badge bg-{% if order.status == 'completed' %}success{% elif order.status == 'pending' %}warning{% else %}danger{% endif %}">
+                            {{ order.status|title }}
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Order Date</h6>
+                        <p class="mb-0">{{ order.created_at|date:"F j, Y" }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Shipping Address</h6>
+                        <p class="mb-0">{{ order.shipping_address }}</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Subtotal</span>
+                        <span>${{ order.total }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="h5">Total</span>
+                        <span class="h5">${{ order.total }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

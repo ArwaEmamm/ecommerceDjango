@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-user me-2"></i>Profile
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <!-- Profile Information -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Profile Information</h4>
+                    <div class="mb-3">
+                        <label class="text-muted">Username</label>
+                        <p class="mb-0">{{ user.username }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted">Email</label>
+                        <p class="mb-0">{{ user.email }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted">Member Since</label>
+                        <p class="mb-0">{{ user.date_joined|date:"F j, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="card-title mb-0">Recent Orders</h4>
+                        <a href="{% url 'orders:order_list' %}" class="btn btn-link">View All</a>
+                    </div>
+
+                    {% if orders %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.order_id }}</td>
+                                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'cancelled' %}danger{% else %}info{% endif %}">
+                                            {{ order.status|title }}
+                                        </span>
+                                    </td>
+                                    <td>${{ order.total }}</td>
+                                    <td class="text-end">
+                                        <a href="{% url 'orders:order_detail' order.id %}" 
+                                           class="btn btn-sm btn-outline-primary">
+                                            Details
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-box fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No orders yet</h5>
+                        <a href="{% url 'products:product_list' %}" class="btn btn-primary mt-3">
+                            Start Shopping
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
